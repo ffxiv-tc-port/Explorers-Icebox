@@ -16,7 +16,7 @@ internal static class VersionNotesUi
     {
         ImGui.NewLine();
 
-        if (ImGui.BeginCombo("Version Notes", VersionSelected))
+        if (ImGui.BeginCombo("版本說明", VersionSelected))
         {
             foreach (var voption in VersionOptions)
             {

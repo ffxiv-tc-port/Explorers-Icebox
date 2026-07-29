@@ -32,14 +32,14 @@ internal class MainWindow : Window
 
     public int selectedRoute = C.routeSelected;
 
-    private readonly List<string> modeSelect = ["Ground XP", "Flying XP", "Material Grind"];
+    private readonly List<string> modeSelect = ["地面經驗值", "飛行經驗值", "素材採集"];
     private int selectedModeIndex = C.ModeSelected;
     private List<string> routeNames => EmbedRoutes.Routes.Keys.OrderBy(name => ExtractNumber(name)).ToList();
 
     public override void Draw()
     {
         ImGui.SetNextItemWidth(200);
-        if (ImGui.BeginCombo("Select Mode", modeSelect[selectedModeIndex]))
+        if (ImGui.BeginCombo("選擇模式", modeSelect[selectedModeIndex]))
         {
             for (int i = 0; i < modeSelect.Count; i++)
             {
@@ -69,7 +69,7 @@ internal class MainWindow : Window
             using (ImRaii.Disabled(DisableSelection))
             {
                 ImGui.SetNextItemWidth(200);
-                if (ImGui.BeginCombo("Select Route", routeNames[selectedRouteIndex]))
+        if (ImGui.BeginCombo("選擇路線", routeNames[selectedRouteIndex]))
                 {
                     for (int i = 0; i < routeNames.Count; i++)
                     {
@@ -158,25 +158,25 @@ internal class MainWindow : Window
             }
 
             bool SkipSell = C.SkipSell;
-            if (ImGui.Checkbox("Skip Selling Items", ref SkipSell))
+        if (ImGui.Checkbox("略過出售物品", ref SkipSell))
             {
                 C.SkipSell = SkipSell;
                 C.Save();
             }
 
             bool RunMaxLoops = C.RunMaxLoops;
-            if (ImGui.Checkbox("Run Maximum Loops", ref RunMaxLoops))
+        if (ImGui.Checkbox("執行最多循環次數", ref RunMaxLoops))
             {
                 C.RunMaxLoops = RunMaxLoops;
                 C.Save();
             }
-            ImGuiEx.HelpMarker("Run the max amount of loops that you can with the current amount to keep.\n" +
-                               "Good if you want to just get as many as you can w/o setting a specific item amount");
+        ImGuiEx.HelpMarker("依目前要保留的數量執行可行的最多循環次數。\n" +
+                           "適合只想盡量採集、不指定特定物品數量時使用。");
             if (RunMaxLoops)
                 IslandHelper.GoalLoopAmount = IslandHelper.MaxRouteLoops;
 
             bool runMultiple = C.RunMultiple;
-            if (ImGui.Checkbox("Repeat Loop", ref runMultiple))
+        if (ImGui.Checkbox("重複循環", ref runMultiple))
             {
                 C.RunMultiple = runMultiple;
                 C.Save();
@@ -192,7 +192,7 @@ internal class MainWindow : Window
                     C.Save();
                 }
                 ImGui.SameLine();
-                ImGui.Text("Amount of times");
+        ImGui.Text("執行次數");
             }
 
             int MinItemKeep = C.MinimumItemKeep;
@@ -200,7 +200,7 @@ internal class MainWindow : Window
             using (ImRaii.Disabled(SkipSell))
             {
                 ImGui.SetNextItemWidth(100);
-                if (ImGui.SliderInt("Keep this many items", ref MinItemKeep, 0, 999))
+        if (ImGui.SliderInt("保留此數量的物品", ref MinItemKeep, 0, 999))
                 {
                     C.MinimumItemKeep = MinItemKeep;
                     C.Save();
@@ -210,13 +210,13 @@ internal class MainWindow : Window
 
             using (ImRaii.Disabled(DisableButtons))
             {
-                if (ImGui.Button("Start"))
+        if (ImGui.Button("開始"))
                 {
                     SchedulerMain.EnablePlugin();
                 }
 
                 ImGui.SameLine();
-                if (ImGui.Button("Stop"))
+        if (ImGui.Button("停止"))
                 {
                     SchedulerMain.DisablePlugin();
                 }
@@ -226,15 +226,15 @@ internal class MainWindow : Window
             {
                 ImGui.SameLine();
                 ImGui.AlignTextToFramePadding();
-                ImGuiEx.IconWithTooltip(FontAwesomeIcon.ExclamationTriangle, "The current setup is not possible without causing issues. \n" +
-                    "Please adjust either how many items to keep, or how many you want to gather. ");
+            ImGuiEx.IconWithTooltip(FontAwesomeIcon.ExclamationTriangle, "目前設定無法安全執行。\n" +
+                                                                                  "請調整要保留或要採集的物品數量。");
                 ImGui.Spacing();
             }
 
             if (ImGui.BeginTable("Loop Info", 2, ImGuiTableFlags.SizingFixedFit))
             {
-                ImGui.TableSetupColumn("Loop Amount");
-                ImGui.TableSetupColumn("Maximum Possible Loops");
+        ImGui.TableSetupColumn("循環次數");
+        ImGui.TableSetupColumn("最多可執行次數");
 
                 ImGui.TableHeadersRow();
 
@@ -254,13 +254,13 @@ internal class MainWindow : Window
 
             IslandHelper.UpdateCounters(routeItems);
 
-            if (ImGui.BeginTable("Gathered items", 5, ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.Borders))
+        if (ImGui.BeginTable("已採集物品", 5, ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.Borders))
             {
-                ImGui.TableSetupColumn("Item");
-                ImGui.TableSetupColumn("Item Per Loop");
-                ImGui.TableSetupColumn("Ignore");
-                ImGui.TableSetupColumn("Gather Amount");
-                ImGui.TableSetupColumn("Current Amount");
+            ImGui.TableSetupColumn("物品");
+            ImGui.TableSetupColumn("每輪數量");
+            ImGui.TableSetupColumn("忽略");
+            ImGui.TableSetupColumn("採集數量");
+            ImGui.TableSetupColumn("目前數量");
 
                 ImGui.TableHeadersRow();
 
