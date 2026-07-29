@@ -1,9 +1,10 @@
 {
     "Author": "Ice",
-    "Name": "ExplorersIcebox'",
+    "Name": "Explorer's Icebox",
     "Punchline": "What if, we held hands underneath the quartz mountain.",
     "Description": "A little helper that lets you level up, or gather all the materials on Island Sanctary. Requires Navmesh & Visland.\nPop open a cold one while the tedious parts of exploration is handled by your good friend cousin robby",
     "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/cycleapple/Explorers-Icebox",
     "Tags": [
         "Island Sanctuary",
         "Island",
