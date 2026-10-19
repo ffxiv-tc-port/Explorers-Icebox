@@ -1,24 +1,41 @@
 # Explorer's Icebox
 
-### ➜ What is this?
-A plugin that is to be used alongside visland/vnavmesh to help you level/gather everything on your little private island. From leveling you from Lv. 5 -> 20, to being able to maximize the amount of items you have while also keeping your workshop inventory.
+[Explorer's Icebox](https://github.com/LeontopodiumNivale14/Explorers-Icebox) 的台服移植版。搭配 vnavmesh 使用的無人島採集自動化插件，協助提升開拓等級與採集無人島素材。
 
-### What modes does it have?
-1: Leveling mode/Cowries grind
-- You can select between two different routes to grind from.
-- Clay | Sand (Ground XP Loop) & Quartz Route (Flying XP Looop) !! Currently have to be lv. 5 and unlocked the shovel before you can use this, but working on making it work from lv. 4 and above
-- Both are the most optimal that you can do depending on your level/if you have unlocked flying on your island. (Quartz is the best route to farm, but can only start doing that at Lv. 10+)
-- Did I mention that you can also input your workshop values, and it will make sure to keep the amount of items that you've inputted, while adjusting the amount of loops that it can do!
-- Also a good farm for <img src="https://github.com/user-attachments/assets/df366124-1406-4504-b1b5-1d17efdfc276" width="20">, allowing you to build up for hi-cordials or materia's for gathering/crafting.
+## 功能
 
-2: Gather select routes
-- You're able to select which routes you want to farm from, and let it go! It will take you to the shop, sell the required amount of items, and proceed to farm the route till you hit maximum capacity/potentional. 
-- All routes have workshop values that you can input, so if you want to keep Stone for your workshop, you're able to input that and it will adjust how many it can do.
+### 模式
 
-### Why create this to begin with?
-This was my first code that I actually wrote in LUA... 1? 2 years ago? Man it's been awhile. But even with island sanctuary being moreso on the dead side due to new content coming out in Dawntrail, there's still people that need to level up/wants to get all the glam/items. And this was a fun code experience in itself. I do hope you all enjoy it and happy gathering.
+- **地面經驗值**：跑內建的黏土／砂礫路線刷開拓經驗
+- **飛行經驗值**：跑內建的石英（高山）路線刷開拓經驗
+- **素材採集**：從內建的多條路線中挑一條，反覆採集該路線的素材
 
-### Planned things I still want to update with this:  
--> Smooth out pathing between leaving the shop to heading to the gather destination  
--> Add an extra route for if you're Lv. 4+ and you don't have the shovel unlocked yet.   
--> Add a teleport to Island Sanctuary button (that way you can just directly TP there)
+### 循環與出售
+
+- 表格列出所選路線每輪會採到的素材、目前持有數量，可逐項設定要採集的數量，自動算出需要的循環次數與最多可跑幾輪
+- 可勾選「執行最多循環次數」直接跑到上限，或「重複循環」指定次數
+- 預計會超過 999 個上限的素材，會先到產品交易賣掉多出的部分再繼續採集；可設定「保留此數量的物品」，賣出時不會低於這個數量，也可勾選「略過出售物品」
+
+## 指令
+
+- `/icebox` 或 `/explorersicebox`：開關主視窗
+
+## 台服版的修改
+
+- 介面與路線名稱繁體中文化
+- 不對正在關閉中或還沒載完的無人島視窗重複按下，降低崩潰風險
+- 修正啟動時每幀呼叫停止流程造成的 IPC 例外
+- 修正 vnavmesh 尋路 IPC 的簽章
+- 插件庫安裝提示改指台服 feed，缺少 vnavmesh 時不會導向國際服
+
+## 需要搭配的插件
+
+- 必要：vnavmesh（移動與尋路）
+
+## 安裝
+
+在 Dalamud 設定的「自訂插件庫」加入
+`https://raw.githubusercontent.com/ffxiv-tc-port/DalamudPluginsTC/main/repo.json`
+並啟用，再從插件列表安裝。
+
+原作者：[LeontopodiumNivale14](https://github.com/LeontopodiumNivale14)

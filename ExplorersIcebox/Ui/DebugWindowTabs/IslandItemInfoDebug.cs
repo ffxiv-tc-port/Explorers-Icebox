@@ -52,7 +52,7 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                 }
             }
 
-            if (ImGui.Button("Update Item Amounts"))
+            if (ImGui.Button("更新物品數量"))
             {
                 var IslandItems = Util.ItemData.IslandItems;
 
@@ -69,15 +69,15 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
 
             ImGui.SameLine();
 
-            if (ImGui.Button("Clear"))
+            if (ImGui.Button("清除"))
             {
                 ItemCount.Clear();
             }
 
             if (ImGui.BeginTable("###ListofNodes", 2, ImGuiTableFlags.RowBg))
             {
-                ImGui.TableSetupColumn("Item");
-                ImGui.TableSetupColumn("Amount");
+                ImGui.TableSetupColumn("項目");
+                ImGui.TableSetupColumn("數量");
 
                 ImGui.TableHeadersRow();
 

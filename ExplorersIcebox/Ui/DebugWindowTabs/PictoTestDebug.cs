@@ -48,31 +48,31 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
 
         public static void Draw()
         {
-            ImGui.Text("Select a color:");
+            ImGui.Text("選擇顏色:");
 
-            if (ImGui.ColorEdit4("Circle Color", ref ImGuiCircleCol))
+            if (ImGui.ColorEdit4("圓形顏色", ref ImGuiCircleCol))
             {
                 C.PictoCircleColor = ToUintABGR(ImGuiCircleCol);
                 C.Save();
             }
-            if (ImGui.ColorEdit4("Dot Color", ref ImGuiDotColor))
+            if (ImGui.ColorEdit4("點顏色", ref ImGuiDotColor))
             {
                 C.PictoWPColor = ToUintABGR(ImGuiDotColor);
                 C.Save();
             }
-            if (ImGui.ColorEdit4("Line Color", ref ImGuiLineColor))
+            if (ImGui.ColorEdit4("線條顏色", ref ImGuiLineColor))
             {
                 C.PictoLineColor = ToUintABGR(ImGuiLineColor);
                 C.Save();
             }
-            if (ImGui.ColorEdit4("Text Color", ref ImGuiTextColor))
+            if (ImGui.ColorEdit4("文字顏色", ref ImGuiTextColor))
             {
                 C.PictoTextCol = ToUintABGR(ImGuiTextColor);
                 C.Save();
             }
 
             IGameObject? target = Svc.Targets.Target;
-            var PlayerPos = Svc.ClientState.LocalPlayer?.Position ?? new Vector3(0);
+            var PlayerPos = Svc.Objects.LocalPlayer?.Position ?? new Vector3(0);
 
             if (target != null)
             {
@@ -84,50 +84,50 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                     Vector3 worldPosition = target.Position;
                     float radius = target.HitboxRadius;
 
-                    ImGui.Checkbox("Show Dot", ref ShowDot);
+                    ImGui.Checkbox("顯示點", ref ShowDot);
                     ImGui.SameLine();
                     ImGui.SetNextItemWidth(100);
 
-                    if (ImGui.DragFloat("Dot Size", ref DotRadius, 0.2f))
+                    if (ImGui.DragFloat("點大小", ref DotRadius, 0.2f))
                     {
                         C.DotRadius = DotRadius;
                         C.Save();
                     }
-                    ImGui.Checkbox("Show Line", ref ShowLine);
+                    ImGui.Checkbox("顯示線條", ref ShowLine);
                     ImGui.SameLine();
                     ImGui.SetNextItemWidth(100);
-                    if (ImGui.DragFloat("Line Width", ref LineWidth, 0.1f))
+                    if (ImGui.DragFloat("線條寬度", ref LineWidth, 0.1f))
                     {
                         C.LineWidth = LineWidth;
                         C.Save();
                     }
-                    ImGui.Checkbox("Show Circle", ref ShowCircle);
-                    ImGui.Checkbox("Show Circle Outline", ref ShowCircleOutline);
-                    ImGui.Checkbox("Show Fan/Donut", ref ShowDonut);
+                    ImGui.Checkbox("顯示圓形", ref ShowCircle);
+                    ImGui.Checkbox("顯示圓形外框", ref ShowCircleOutline);
+                    ImGui.Checkbox("顯示扇形/環形", ref ShowDonut);
                     ImGui.SetNextItemWidth(100);
-                    if (ImGui.DragFloat2("Inner | Outer Radius", ref DonutRadius, 0.1f))
+                    if (ImGui.DragFloat2("內徑 | 外徑", ref DonutRadius, 0.1f))
                     {
                         C.DonutRadius = DonutRadius;
                         C.Save();
                     }
                     ImGui.SetNextItemWidth(100);
-                    if (ImGui.DragFloat2("Start/End Position", ref FanPosition, 0.1f))
+                    if (ImGui.DragFloat2("起始/結束位置", ref FanPosition, 0.1f))
                     {
                         C.FanPosition = FanPosition;
                         C.Save();
                     }
-                    ImGui.Checkbox("Show VFX", ref ShowVFX);
-                    ImGui.Checkbox("Show Name", ref ShowName);
+                    ImGui.Checkbox("顯示 VFX", ref ShowVFX);
+                    ImGui.Checkbox("顯示名稱", ref ShowName);
                     ImGui.SameLine();
                     ImGui.SetNextItemWidth(100);
-                    if (ImGui.DragFloat("Float Name", ref FloatDistance))
+                    if (ImGui.DragFloat("名稱浮動距離", ref FloatDistance))
                     {
                         C.TextFloatPlus = FloatDistance;
                         C.Save();
                     }
                     ImGui.SameLine();
                     ImGui.SetNextItemWidth(100);
-                    ImGui.DragFloat("Scale", ref FloatTextScale);
+                    ImGui.DragFloat("縮放", ref FloatTextScale);
 
 
                     if (ShowDot)

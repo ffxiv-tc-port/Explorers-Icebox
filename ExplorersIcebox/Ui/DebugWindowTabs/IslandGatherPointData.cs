@@ -47,7 +47,7 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
         public static void GatherPointDataDraw()
         {
             var objects = Svc.Objects.Where(e => e.ObjectKind == Dalamud.Game.ClientState.Objects.Enums.ObjectKind.CardStand);
-            ImGui.DragFloat("Distance to object", ref Distance);
+            ImGui.DragFloat("與目標距離", ref Distance);
 
             foreach (var obj in objects)
             {
@@ -62,19 +62,19 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                 }
             }
 
-            ImGui.Text($"Total Nodes Found: {NodeCount}");
-            if (ImGui.Button("Reset"))
+            ImGui.Text($"已找到採集點總數: {NodeCount}");
+            if (ImGui.Button("重置"))
             {
                 NodeCount = GatherNodeIds.Sum(pair => pair.Value.Count);
             }
 
-            if (ImGuiEx.TreeNode("List of Nodes"))
+            if (ImGuiEx.TreeNode("採集點清單"))
             {
                 if (ImGui.BeginTable("###ListofNodes", 4, ImGuiTableFlags.RowBg))
                 {
-                    ImGui.TableSetupColumn("Item");
+                    ImGui.TableSetupColumn("項目");
                     ImGui.TableSetupColumn("ID");
-                    ImGui.TableSetupColumn("Distance");
+                    ImGui.TableSetupColumn("距離");
 
                     ImGui.TableHeadersRow();
 
@@ -106,7 +106,7 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                 }
             }
 
-            if (ImGui.Button("Clear Listing"))
+            if (ImGui.Button("清除清單"))
             {
                 foreach (var entry in GatherNodeIds)
                 {
@@ -117,9 +117,9 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
             foreach (var entry in GatherNodeIds)
             {
                 ImGui.AlignTextToFramePadding();
-                ImGui.Text($"Item: {entry.Key} | Amount Found: {entry.Value.Count}");
+                ImGui.Text($"項目: {entry.Key} | 找到數量: {entry.Value.Count}");
                 ImGui.SameLine();
-                if (ImGui.Button($"Copy List ###List_{entry.Key}"))
+                if (ImGui.Button($"複製清單 ###List_{entry.Key}"))
                 {
                     string nodeIds = string.Empty;
                     foreach (var id in entry.Value)

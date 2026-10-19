@@ -26,11 +26,11 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
 
         public static void Draw()
         {
-            ImGui.Text("Route Editor");
+            ImGui.Text("路線編輯器");
 
             // Input for creating a new route
-            ImGui.InputText("New Route Name", ref NewRouteName, 64);
-            if (ImGui.Button("Add Route") && !string.IsNullOrWhiteSpace(NewRouteName))
+            ImGui.InputText("新路線名稱", ref NewRouteName, 64);
+            if (ImGui.Button("新增路線") && !string.IsNullOrWhiteSpace(NewRouteName))
             {
                 var newRoute = new RouteClass.InteractionUtil();
 
@@ -53,7 +53,7 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                 ImGui.SameLine();
 
                 ImGui.SetNextItemWidth(222);
-                if (ImGui.BeginCombo("Select Route", BaseRouteNames[SelectedRouteIndex]))
+                if (ImGui.BeginCombo("選擇路線", BaseRouteNames[SelectedRouteIndex]))
                 {
                     for (int i = 0; i < BaseRouteNames.Count; i++)
                     {
@@ -72,7 +72,7 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                 }
 
                 ImGui.SameLine();
-                if (ImGui.Button("Remove Route"))
+                if (ImGui.Button("移除路線"))
                 {
                     var Route = G.Routes.Where(x => x.Key == BaseRouteNames[SelectedRouteIndex]).FirstOrDefault();
                     G.Routes.Remove(Route);
@@ -89,9 +89,9 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
             {
                 if (G.BaseRoutes.ContainsKey(routeSelected.Key))
                 {
-                    ImGui.Checkbox("Display Path WP", ref PathWP);
+                    ImGui.Checkbox("顯示路徑路點", ref PathWP);
 
-                    if (ImGui.Checkbox("Show Targets", ref ShowTargets))
+                    if (ImGui.Checkbox("顯示目標", ref ShowTargets))
                     {
                         if (!ShowTargets && ShowTargetsName)
                         {
@@ -101,16 +101,16 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                     using (ImRaii.Disabled(!ShowTargets))
                     {
                         ImGui.SameLine();
-                        ImGui.Checkbox("Show Target Names", ref ShowTargetsName);
+                        ImGui.Checkbox("顯示目標名稱", ref ShowTargetsName);
                     }
 
                     // - - - - - - - //
 
-                    if (ImGui.Button("Test Route"))
+                    if (ImGui.Button("測試路線"))
                     {
                         Task_SellItems.Enqueue();
                     }
-                    if (ImGui.Button("Reverse Route"))
+                    if (ImGui.Button("反轉路線"))
                     {
                         List<Vector3> wpList = new();
                         foreach (var waypoint in routeSelected.Value.Waypoints)
@@ -122,7 +122,7 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                     }
 
                     ImGui.SameLine();
-                    if (ImGui.Button("Stop"))
+                    if (ImGui.Button("停止"))
                     {
                         P.taskManager.Abort();
                         P.navmesh.Stop();
@@ -175,17 +175,17 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                     Vector3 playerPos = new Vector3(0, 0, 0);
                     ulong targetId = 0;
 
-                    if (Svc.ClientState.LocalPlayer != null)
-                        playerPos = Svc.ClientState.LocalPlayer.Position;
+                    if (Svc.Objects.LocalPlayer != null)
+                        playerPos = Svc.Objects.LocalPlayer.Position;
                     if (Svc.Targets.Target != null)
                         targetId = Svc.Targets.Target.DataId;
 
                     ImGui.AlignTextToFramePadding();    
-                    ImGui.Text($"Target DatId: {routeSelected.Value.TargetId}");
+                    ImGui.Text($"目標資料ID: {routeSelected.Value.TargetId}");
                     if (routeSelected.Value.TargetId != 0)
                     {
                         ImGui.SameLine();
-                        if (ImGui.Button("Clear Target"))
+                        if (ImGui.Button("清除目標"))
                         {
                             routeSelected.Value.TargetId = 0;
                             G.Save();
@@ -195,7 +195,7 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                     if (targetId != 0)
                     {
                         ImGui.SameLine();
-                        if (ImGui.Button($"Set Target: {targetId}"))
+                        if (ImGui.Button($"設定目標: {targetId}"))
                         {
                             routeSelected.Value.TargetId = targetId;
                             G.Save();
@@ -204,7 +204,7 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
 
                     ImGui.Text($"X: {playerPos.X:N2}, Y: {playerPos.Y:N2}, Z: {playerPos.Z:N2}");
 
-                    if (ImGui.Button("Add Current WP"))
+                    if (ImGui.Button("新增目前路點"))
                     {
                         routeSelected.Value.Waypoints.Add(playerPos);
                         G.Save();
@@ -216,8 +216,8 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                         ImGui.TableSetupColumn("X");
                         ImGui.TableSetupColumn("Y");
                         ImGui.TableSetupColumn("Z");
-                        ImGui.TableSetupColumn("Adjust");
-                        ImGui.TableSetupColumn("Remove");
+                        ImGui.TableSetupColumn("調整");
+                        ImGui.TableSetupColumn("移除");
 
                         ImGui.TableHeadersRow();
 
@@ -244,14 +244,14 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
                             ImGui.Text($"{wp.Z:N2}");
 
                             ImGui.TableNextColumn();
-                            if (ImGui.Button($"Adjust ###Adjust_{wp}_{i}"))
+                            if (ImGui.Button($"調整 ###Adjust_{wp}_{i}"))
                             {
                                 routeSelected.Value.Waypoints[i] = playerPos;
                                 G.Save();
                             }
 
                             ImGui.TableNextColumn();
-                            if (ImGui.Button($"Remove ###Remove_{wp}_{i}"))
+                            if (ImGui.Button($"移除 ###Remove_{wp}_{i}"))
                             {
                                 routeSelected.Value.Waypoints.Remove(wp);
                                 G.Save();

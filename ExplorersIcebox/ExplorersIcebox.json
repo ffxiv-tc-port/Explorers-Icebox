@@ -2,9 +2,9 @@
     "Author": "Ice",
     "Name": "Explorer's Icebox",
     "Punchline": "協助無人島開拓與素材採集。",
-    "Description": "協助提升無人島等級或採集各種無人島素材。需要 vnavmesh 與 Visland。",
+    "Description": "協助提升無人島等級或採集各種無人島素材。需要 vnavmesh。",
     "ApplicableVersion": "any",
-    "RepoUrl": "https://github.com/cycleapple/Explorers-Icebox",
+    "RepoUrl": "https://github.com/ffxiv-tc-port/Explorers-Icebox",
     "Tags": [
         "無人島開拓",
         "無人島",

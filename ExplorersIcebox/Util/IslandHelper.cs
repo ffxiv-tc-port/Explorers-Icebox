@@ -14,6 +14,8 @@ public static class IslandHelper
     public static int GoalLoopAmount = 0;
     public static int MaxRouteLoops = 999;
     public static int LoopCounter = 0;
+    /// <summary>這一輪路線已跑完的圈數；任務逾時清掉佇列後重排時只排剩下的圈。開始、停止、每輪結束時歸零。</summary>
+    public static int RouteLapsDone = 0;
     public static KeyValuePair<string, RouteClass.RouteUtil> CurrentRoute;
     public static Dictionary<int, int> SellItems = new();
 

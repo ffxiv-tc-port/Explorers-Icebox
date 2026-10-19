@@ -14,15 +14,15 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
 
             if (target != null)
             {
-                if (ImGui.Button($"Name: {target.Name}"))
+                if (ImGui.Button($"名稱: {target.Name}"))
                 {
                     ImGui.SetClipboardText($"GatherName = \"{target.Name}\",");
                 }
-                if (ImGui.Button($"Object ID: {target.GameObjectId}"))
+                if (ImGui.Button($"物件ID: {target.GameObjectId}"))
                 {
                     ImGui.SetClipboardText($"{target.GameObjectId}");
                 }
-                if (ImGui.Button($"Data ID: {target.DataId}"))
+                if (ImGui.Button($"資料ID: {target.DataId}"))
                 {
                     ImGui.SetClipboardText($"{target.DataId}");
                 }

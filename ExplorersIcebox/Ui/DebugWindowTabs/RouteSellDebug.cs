@@ -10,14 +10,14 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
     {
         public static void Draw()
         {
-            ImGui.Text("This is where the route sell debug would be... IF I HAD ONE");
+            ImGui.Text("這裡本來應該要有路線出售除錯畫面……如果我有做的話");
             if (IPC.NavmeshIPC.Installed)
             {
-                ImGui.Text("Navmesh is installed. Woohoo!");
+                ImGui.Text("Navmesh 已安裝，好耶！");
             }
             else
             {
-                ImGui.Text("Navmesh is not installed. BOOOOO");
+                ImGui.Text("Navmesh 未安裝，噓～");
             }
         }
     }

@@ -31,6 +31,8 @@ public static class AddonHelper
     {
 
         var ptr = Svc.GameGui.GetAddonByName(addonName, 1);
+        if (ptr == nint.Zero)
+            return string.Empty;
 
         var addon = (AtkUnitBase*)ptr.Address;
         var uld = addon->UldManager;
@@ -53,6 +55,9 @@ public static class AddonHelper
             }
         }
 
+        if (node == null)
+            return string.Empty;
+
         if (node->Type == NodeType.Counter)
             return ((AtkCounterNode*)node)->NodeText.ToString();
 
@@ -63,6 +68,8 @@ public static class AddonHelper
     {
 
         var ptr = Svc.GameGui.GetAddonByName(addonName, 1);
+        if (ptr == nint.Zero)
+            return null;
 
         var addon = (AtkUnitBase*)ptr.Address;
         var uld = addon->UldManager;

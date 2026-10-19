@@ -15,12 +15,12 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
 
         public static void Draw()
         {
-            ImGui.Text($"General Information");
-            ImGui.Text($"TerritoryID: " + Svc.ClientState.TerritoryType);
-            ImGui.Text($"Target: " + Svc.Targets.Target);
+            ImGui.Text($"一般資訊");
+            ImGui.Text($"地區ID: " + Svc.ClientState.TerritoryType);
+            ImGui.Text($"目標: " + Svc.Targets.Target);
             ImGui.InputText("##Addon Visible", ref AddonName, 100);
             ImGui.SameLine();
-            ImGui.Text($"Addon Visible: ");
+            ImGui.Text($"Addon 可見: ");
             ImGui.SameLine();
             if (AddonHelper.IsAddonActive(AddonName))
             {
@@ -30,17 +30,17 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
             {
                 FontAwesome.Print(ImGuiColors.DalamudRed, FontAwesome.Cross);
             }
-            ImGui.Text($"Navmesh information");
-            var player = Svc.ClientState.LocalPlayer;
+            ImGui.Text($"Navmesh 資訊");
+            var player = Svc.Objects.LocalPlayer;
             if (player != null)
             {
-                ImGui.Text($"PlayerPos: " + player.Position);
+                ImGui.Text($"玩家座標: " + player.Position);
             }
-            ImGui.Text($"Navmesh BuildProgress :" + P.navmesh.BuildProgress());//working ipc
-            ImGui.Text($"Current task time remaining is: {P.taskManager.RemainingTimeMS}");
-            ImGui.Text($"Current task is: {P.taskManager.CurrentTask}");
-            ImGui.Text($"Current task count: {P.taskManager.NumQueuedTasks}");
-            if (ImGui.Button("Swap to island mode"))
+            ImGui.Text($"Navmesh 建置進度: " + P.navmesh.BuildProgress());//working ipc
+            ImGui.Text($"目前任務剩餘時間: {P.taskManager.RemainingTimeMS}");
+            ImGui.Text($"目前任務: {P.taskManager.CurrentTask}");
+            ImGui.Text($"目前任務數量: {P.taskManager.NumQueuedTasks}");
+            if (ImGui.Button("切換至無人島模式"))
             {
                 Task_GatherMode.Enqueue();
             }

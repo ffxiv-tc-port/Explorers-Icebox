@@ -15,16 +15,16 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
 
         public static void Draw()
         {
-            if (ImGui.Button("Return to Island Base"))
+            if (ImGui.Button("返回無人島營地"))
             {
                 Task_ReturnToBase.Enqueue();
             }
 
-            if (ImGui.Button("Open Player Search"))
+            if (ImGui.Button("開啟玩家搜尋"))
             {
                 Utils.OpenPlayerSearch(15);
             }
-            if (ImGui.Button("Open Friends"))
+            if (ImGui.Button("開啟好友清單"))
             {
                 Utils.OpenPlayerSearch(13);
             }
@@ -34,7 +34,7 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
             ImGui.SetNextItemWidth(100);
             ImGui.InputText("###TextTest", ref PopupText, 100);
 
-            if (ImGui.Button("Test Text"))
+            if (ImGui.Button("測試文字"))
             {
                 Utils.ShowText(Position, PopupText);
             }

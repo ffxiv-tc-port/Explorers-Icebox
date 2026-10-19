@@ -12,21 +12,29 @@ namespace ExplorersIcebox.Scheduler.Tasks
     {
         public static void Enqueue()
         {
-            Task_GatherMode.Enqueue();
-            foreach (var wpList in IslandHelper.CurrentRoute.Value.BaseToLocation)
-            {
-                Task_BaseToGather.Enqueue(wpList.Waypoints, wpList.Mount, wpList.Fly);
-            }
-
             var totalLoops = IslandHelper.GoalLoopAmount;
             if (C.RunMaxLoops)
                 totalLoops = IslandHelper.MaxRouteLoops;
-            for (var i = 0; i < totalLoops; i++)
+            var remainingLoops = Math.Max(0, totalLoops - IslandHelper.RouteLapsDone);
+            if (IslandHelper.RouteLapsDone > 0)
+                Svc.Log.Information($"[Icebox] 路線中斷後重排：這一輪已跑完 {IslandHelper.RouteLapsDone}/{totalLoops} 圈，只排剩下的 {remainingLoops} 圈。");
+
+            if (remainingLoops > 0)
+            {
+                Task_GatherMode.Enqueue();
+                foreach (var wpList in IslandHelper.CurrentRoute.Value.BaseToLocation)
+                {
+                    Task_BaseToGather.Enqueue(wpList.Waypoints, wpList.Mount, wpList.Fly);
+                }
+            }
+
+            for (var i = 0; i < remainingLoops; i++)
             {
                 foreach (var entry in IslandHelper.CurrentRoute.Value.RouteWaypoints)
                 {
                     Task_IslandInteract.Enqueue(entry.Waypoints, entry.TargetId, entry.Mount, entry.Fly);
                 }
+                P.taskManager.Enqueue(() => { IslandHelper.RouteLapsDone++; }, "Route lap done");
             }
             P.taskManager.Enqueue(() => CheckLoopCount(), "Checking loop count");
         }
@@ -48,6 +56,7 @@ namespace ExplorersIcebox.Scheduler.Tasks
             Svc.Log.Debug($"Max total loops: {IslandHelper.GoalLoopAmount}");
             int RepeatAmount = C.RunAmount;
             IslandHelper.LoopCounter += 1;
+            IslandHelper.RouteLapsDone = 0;
             if (C.RunMultiple && IslandHelper.LoopCounter < RepeatAmount)
             {
                 Svc.Log.Debug($"Run multiple loops were enabled. \n" +

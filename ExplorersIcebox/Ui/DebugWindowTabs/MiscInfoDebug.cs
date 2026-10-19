@@ -13,87 +13,95 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
         public static void Draw()
         {
             // Input box
-            ImGui.InputText("Enter a number", ref InputValue, 20);
+            ImGui.InputText("輸入數字", ref InputValue, 20);
 
-            if (ImGui.Button("Submit"))
+            if (ImGui.Button("送出"))
             {
                 // Try to parse the input to a ulong
                 if (ulong.TryParse(InputValue, out Result))
                 {
-                    ImGui.Text($"Valid input! Parsed ulong: {Result}");
+                    ImGui.Text($"輸入有效！解析結果: {Result}");
                 }
                 else
                 {
-                    ImGui.Text("Invalid input. Please enter a valid number.");
+                    ImGui.Text("輸入無效，請輸入有效的數字。");
                 }
             }
 
-            ImGui.Text($"Current Value: {InputValue}");
+            ImGui.Text($"目前數值: {InputValue}");
 
-            if (ImGui.Button("Update NodeIds"))
+            if (ImGui.Button("更新節點ID"))
             {
                 IslandHelper.UpdateShopCallback();
             }
 
             ImGui.SameLine();
-            if (ImGui.Button("Update NodeId Task"))
+            if (ImGui.Button("更新節點ID任務"))
             {
                 Task_UpdateShop.Enqueue();
             }
 
             if (GenericHelpers.TryGetAddonMaster<MJIHud>("MJIHud", out var hud) && hud.IsAddonReady)
             {
-                if (ImGui.Button("Open IsleInventory"))
+                if (ImGui.Button("開啟無人島物品欄"))
                 {
-                    hud.Isleventory();
+                    if (AddonPressGuard.TryBeginPress("MJIHud", hud, "Isleventory", AddonPressGuard.RoutineRePressEscapeFrames))
+                        hud.Isleventory();
                 }
 
                 ImGui.SameLine();
-                if (ImGui.Button("Open Crafting Log"))
+                if (ImGui.Button("開啟工藝紀錄簿"))
                 {
-                    hud.SanctuaryCraftingLog();
+                    if (AddonPressGuard.TryBeginPress("MJIHud", hud, "SanctuaryCraftingLog", AddonPressGuard.RoutineRePressEscapeFrames))
+                        hud.SanctuaryCraftingLog();
                 }
 
                 ImGui.SameLine();
-                if (ImGui.Button("Open Gathering Log"))
+                if (ImGui.Button("開啟採集紀錄簿"))
                 {
-                    hud.SanctuaryGatheringLog();
+                    if (AddonPressGuard.TryBeginPress("MJIHud", hud, "SanctuaryGatheringLog", AddonPressGuard.RoutineRePressEscapeFrames))
+                        hud.SanctuaryGatheringLog();
                 }
 
                 ImGui.SameLine();
-                if (ImGui.Button("Manage Hideaway"))
+                if (ImGui.Button("管理隱居小屋"))
                 {
-                    hud.ManageHideaway();
+                    if (AddonPressGuard.TryBeginPress("MJIHud", hud, "ManageHideaway", AddonPressGuard.RoutineRePressEscapeFrames))
+                        hud.ManageHideaway();
                 }
 
                 ImGui.SameLine();
-                if (ImGui.Button("Material Allocation"))
+                if (ImGui.Button("材料分配"))
                 {
-                    hud.MaterialAllocation();
+                    if (AddonPressGuard.TryBeginPress("MJIHud", hud, "MaterialAllocation", AddonPressGuard.RoutineRePressEscapeFrames))
+                        hud.MaterialAllocation();
                 }
 
                 ImGui.SameLine();
-                if (ImGui.Button("Manage Minions"))
+                if (ImGui.Button("管理寵物"))
                 {
-                    hud.ManageMinions();
+                    if (AddonPressGuard.TryBeginPress("MJIHud", hud, "ManageMinions", AddonPressGuard.RoutineRePressEscapeFrames))
+                        hud.ManageMinions();
                 }
 
                 ImGui.SameLine();
-                if (ImGui.Button("Manage Furnishing"))
+                if (ImGui.Button("管理無人島庭具"))
                 {
-                    hud.ManageFurnishing();
+                    if (AddonPressGuard.TryBeginPress("MJIHud", hud, "ManageFurnishing", AddonPressGuard.RoutineRePressEscapeFrames))
+                        hud.ManageFurnishing();
                 }
 
                 ImGui.SameLine();
-                if (ImGui.Button("Guide"))
+                if (ImGui.Button("導覽"))
                 {
-                    hud.Guide();
+                    if (AddonPressGuard.TryBeginPress("MJIHud", hud, "Guide", AddonPressGuard.RoutineRePressEscapeFrames))
+                        hud.Guide();
                 }
             }
 
             if (ImGui.BeginTable("Callback Values", 2, ImGuiTableFlags.SizingFixedFit))
             {
-                ImGui.TableSetupColumn("Item");
+                ImGui.TableSetupColumn("項目");
                 ImGui.TableSetupColumn("Callback");
 
                 ImGui.TableHeadersRow();

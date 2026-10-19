@@ -29,4 +29,11 @@
       <EmbeddedResource Include="Routes\CustomRoutes.yaml" />
     </ItemGroup>
     
+  <!-- ECommons 的文件註解檔 ECommons.xml 執行期用不到：不複製進輸出目錄，出貨包也就不帶它（ECommons.pdb 照留，崩潰堆疊行號要用）。 -->
+  <Target Name="ExcludeECommonsXmlDoc" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <_ECommonsXmlDoc Include="@(ReferenceCopyLocalPaths)" Condition="'%(Filename)%(Extension)' == 'ECommons.xml'" />
+      <ReferenceCopyLocalPaths Remove="@(_ECommonsXmlDoc)" />
+    </ItemGroup>
+  </Target>
 </Project>

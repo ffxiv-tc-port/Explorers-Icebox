@@ -13,10 +13,10 @@ namespace ExplorersIcebox.Ui.DebugWindowTabs
         {
             if (GenericHelpers.TryGetAddonMaster<MJIHud>("MJIHud", out var mjiHud) && mjiHud.IsAddonReady)
             {
-                ImGui.Text($"Current Level: {mjiHud.SanctuaryRank}");
-                ImGui.Text($"Current Island XP: {mjiHud.CurrentIslandXP} | {mjiHud.NextIslandLevelXP}");
-                ImGui.Text($"Island Cowries: {mjiHud.IslandersCowrie}");
-                ImGui.Text($"Seafarers Cowries: {mjiHud.SeafarersCowrie}");
+                ImGui.Text($"目前等級: {mjiHud.SanctuaryRank}");
+                ImGui.Text($"目前島嶼經驗值: {mjiHud.CurrentIslandXP} | {mjiHud.NextIslandLevelXP}");
+                ImGui.Text($"居民 Cowrie: {mjiHud.IslandersCowrie}");
+                ImGui.Text($"海員 Cowrie: {mjiHud.SeafarersCowrie}");
             }
         }
     }

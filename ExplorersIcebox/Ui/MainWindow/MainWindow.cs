@@ -1,4 +1,5 @@
 using Dalamud.Interface.Utility.Raii;
+using ECommons.ExcelServices;
 using ExplorersIcebox.Scheduler;
 using ExplorersIcebox.Scheduler.Tasks;
 using ExplorersIcebox.Util;
@@ -69,12 +70,12 @@ internal class MainWindow : Window
             using (ImRaii.Disabled(DisableSelection))
             {
                 ImGui.SetNextItemWidth(200);
-        if (ImGui.BeginCombo("選擇路線", routeNames[selectedRouteIndex]))
+        if (ImGui.BeginCombo("選擇路線", RouteNameLoc.Translate(routeNames[selectedRouteIndex])))
                 {
                     for (int i = 0; i < routeNames.Count; i++)
                     {
                         bool isSelected = (i == selectedRouteIndex);
-                        if (ImGui.Selectable(routeNames[i], isSelected))
+                        if (ImGui.Selectable($"{RouteNameLoc.Translate(routeNames[i])}###route_{i}", isSelected))
                         {
                             selectedRouteIndex = i;
                             C.routeSelected = i;
@@ -269,7 +270,7 @@ internal class MainWindow : Window
                     ImGui.TableNextRow();
 
                     ImGui.TableSetColumnIndex(0);
-                    ImGui.Text($"{item.Key}");
+                    ImGui.Text($"{ExcelItemHelper.GetName((uint)item.Value.ItemId)}");
                     if (ImGui.IsItemHovered())
                     {
                         ImGui.BeginTooltip();
