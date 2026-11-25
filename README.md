@@ -1,6 +1,6 @@
 # Explorer's Icebox
 
-[Explorer's Icebox](https://github.com/LeontopodiumNivale14/Explorers-Icebox) 的台服移植版。搭配 vnavmesh 使用的無人島採集自動化插件，協助提升開拓等級與採集無人島素材。
+[Explorer's Icebox](https://github.com/LeontopodiumNivale14/Explorers-Icebox) 的台服移植版。搭配 vnavmesh 使用的無人島採集自動化插件，協助提升開拓等級與採集無人島素材。採集一律由你在主視窗按下開始，載入或進島不會自己開始。
 
 ## 功能
 
@@ -26,16 +26,22 @@
 - 不對正在關閉中或還沒載完的無人島視窗重複按下，降低崩潰風險
 - 修正啟動時每幀呼叫停止流程造成的 IPC 例外
 - 修正 vnavmesh 尋路 IPC 的簽章
-- 插件庫安裝提示改指台服 feed，缺少 vnavmesh 時不會導向國際服
-
-## 需要搭配的插件
-
-- 必要：vnavmesh（移動與尋路）
+- 提供急停 IPC `ExplorersIcebox.StopAll` 給其他插件呼叫（只能停止；開始一律要你自己按）
+- 缺少 vnavmesh 時的安裝提示改指台服的第三方插件倉庫，不會導向國際服
 
 ## 安裝
 
-在 Dalamud 設定的「自訂插件庫」加入
-`https://raw.githubusercontent.com/ffxiv-tc-port/DalamudPluginsTC/main/repo.json`
-並啟用，再從插件列表安裝。
+1. 在遊戲內輸入 `/xlsettings` 開啟「Dalamud 設定」，到「試驗性功能」分頁的「第三方插件倉庫」加入
+   `https://raw.githubusercontent.com/ffxiv-tc-port/DalamudPluginsTC/main/repo.json`
+   勾選啟用後儲存。
+2. 輸入 `/xlplugins` 開啟「插件管理員」，搜尋「Explorer's Icebox」安裝。
+
+同一個插件只裝這裡的版本，不要同時安裝上游（國際服）版本。
+
+## 需要搭配的插件
+
+- 必要：[vnavmesh](https://github.com/ffxiv-tc-port/vnavmesh)（移動與尋路）
 
 原作者：[LeontopodiumNivale14](https://github.com/LeontopodiumNivale14)
+
+授權：AGPL-3.0（見 LICENSE.md）
